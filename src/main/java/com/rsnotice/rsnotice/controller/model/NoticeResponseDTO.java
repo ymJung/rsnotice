@@ -1,4 +1,13 @@
 package com.rsnotice.rsnotice.controller.model;
 
-public class NoticeResponseDTO {
-}
+import java.time.LocalDateTime;
+
+public record NoticeResponseDTO(
+        Long id,
+        String title,
+        String content,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt,
+        Long viewCount,
+        String createdBy
+) {}

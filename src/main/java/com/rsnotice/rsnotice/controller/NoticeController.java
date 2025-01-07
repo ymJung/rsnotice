@@ -1,6 +1,8 @@
 package com.rsnotice.rsnotice.controller;
 
 
+import com.rsnotice.rsnotice.controller.exception.InvalidNoticeException;
+import com.rsnotice.rsnotice.controller.exception.NoticeNotFoundException;
 import com.rsnotice.rsnotice.controller.model.NoticeRequestDTO;
 import com.rsnotice.rsnotice.controller.model.NoticeResponseDTO;
 import com.rsnotice.rsnotice.service.NoticeService;
@@ -38,5 +40,13 @@ public class NoticeController {
         return ResponseEntity.ok(service.updateNotice(id, request));
     }
 
+    @ExceptionHandler(NoticeNotFoundException.class)
+    public ResponseEntity<String> handleNotFoundException(NoticeNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 
+    @ExceptionHandler(InvalidNoticeException.class)
+    public ResponseEntity<String> handleInvalidNoticeException(InvalidNoticeException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
 }
